@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="content-wrap">
+        <div class="content center">
+            <div class="title">
+                <div class="more">
+                    {{range .cateList}}
+                    <a href="/?cate_id={{.ID}}" class="btn btn-success">{{.CateName}}</a>
+                    {{end}}
+                </div>
+            </div>
+           {{if .articleList}}
+            {{range .articleList}}
+            <div class="excerpt">
+                <header>
+                    <a class="cat btn-warning" href="#" >{{.CateName}}<i></i></a>
+                    <h2><a href="/article?id={{.ID}}" class="btn btn-info">{{.Title}}</a></h2>
+                </header>
+                {{.Desc}}
+                <p class="meta">
+                    <a class="category btn btn-default" href="#"><i class="glyphicon glyphicon-folder-open"></i> {{.CateName}}</a>
+                    <a class="time btn btn-default" href="#"><i class="glyphicon glyphicon-time"></i> {{.UpdatedAt.Format "2006-01-02 15:04:05"}}</a>
+                </p>
+
+            </div>
+            {{end}}
+            {{else}}
+            <div class="text-center">
+                <h3>
+                    <stong>暂无内容</stong>
+                </h3>
+            </div>
+            {{end}}
+
+        </div>
+
+    </div>
+</div>

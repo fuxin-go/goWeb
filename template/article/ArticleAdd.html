@@ -1,0 +1,98 @@
+{{template "header.html" .}}
+{{template "nav.html" .}}
+<!-- 左侧导航和正文内容的分隔线 -->
+<link rel="stylesheet" href="../../static/md/css/editormd.css"/>
+<script src="../../static/md/editormd.min.js"></script>
+<div class="splitter"></div>
+<!-- 正文内容部分 -->
+<div class="pageContent">
+
+    <header>
+        <h3>添加文章 &nbsp;&nbsp; <a href="/article/list">返回列表</a></h3>
+    </header>
+    <div class="btns">
+        <button id="article_add" class="btn btn-success">提交</button>
+    </div>
+    <input type="hidden" name="ID" id="id" value="{{.articleRow.ID}}">
+    <label for="" style="margin-left: 75px;">
+        标题：<input class="form-control" type="text" name="Title" id="title" value="{{.articleRow.Title}}">
+        分类：<select class=" form-control cate_select" name="CateId" id="cate_id" >
+        {{range .cateList}}
+
+        <option value="{{.ID}}">{{.CateName}}</option>
+
+        {{end}}
+    </select>
+        标签：<select class="form-control  tag_select" name="TagId" id="tag_id" >
+        {{range .tagList}}
+        <option value="{{.ID}}">{{.TagName}}</option>
+        {{end}}
+    </select>
+    </label>
+    <p style="margin-left: 75px;">
+        <label for="">
+            描述：<textarea class="form-control" name="Desc" id="desc" cols="72"
+                         rows="3">{{.articleRow.Desc}}</textarea>
+        </label>
+    </p>
+    <div id="article-editormd" style="height: 100%">
+        <textarea style="display:none;" name="Content" id="content">{{.articleRow.Content}}</textarea>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+
+        if({{.article.CateId}} !== ""){
+            $(".cate_select").val({{.articleRow.CateId}});
+        }
+        if({{.article.TagId}} !== ""){
+            $(".tag_select").val({{.articleRow.TagId}});
+        }
+        token = sessionStorage.getItem('token');
+
+        if (token === null) {
+            window.location.href = "/user/login";
+        }
+        var testEditor;
+
+
+        testEditor = editormd("article-editormd", {
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "../../static/md/lib/"
+        });
+
+
+        $("#article_add").click(function () {
+
+            let id = $("#id").val(),
+             title = $("#title").val(),
+             cateId = $("#cate_id").val(),
+             tagId = $("#tag_id").val(),
+             desc = $("#desc").val(),
+             content = $("#content").val(),
+             token = window.sessionStorage.getItem('token'),
+             userId = window.sessionStorage.getItem('userId'),
+             username = window.sessionStorage.getItem('username');
+            data = {Title:title,ID:id,CateId:cateId,TagId:tagId,Desc:desc,Content:content,UserId:userId,Username:username}
+            console.log(data)
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: id === "" ? "/article/add" : "/article/edit",
+                data: data,
+                beforeSend: function (xhr) {
+                    token = window.sessionStorage.getItem('token');
+                    xhr.setRequestHeader("Authorization", token);
+                },
+                success: function (result, status, xhr) {
+                    if (result.code === 200) {
+                        window.location.href = "/article/list";
+                    }
+                }
+            })
+        })
+    })
+</script>

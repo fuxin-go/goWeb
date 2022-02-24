@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../../static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../static/css/style.css">
+  <script src="../../static/js/jquery.min.js"></script>
+  <script src="../../static/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function (){
+      var token = window.sessionStorage.getItem("token");
+      var username = window.sessionStorage.getItem("username");
+      $("#login_name").text(username)
+
+    })
+  </script>
+</head>
+<body>
+<!--顶部导航栏部分-->
+<nav class="navbar navbar-default" style="height: 60px">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" title="logo" href="/admin">XX博客后台</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li role="presentation">
+          <a href="#">当前用户：<span class="badge" id="login_name">TestUser</span></a>
+        </li>
+        <li>
+          <a href="/user/logout">
+            <span class="glyphicon glyphicon-lock"></span>退出登录</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>

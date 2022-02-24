@@ -1,0 +1,15 @@
+{{template "indexHead.html" .}}
+<div class="container">
+    <div class="panel">
+        <div class="text-center">
+            <div class="widget widget_sentence">
+                <ul>
+                    {{range .tagList}}
+                    <li><a style=""href="/?id={{.ID}}">{{.TagName}} <span class="badge">{{.Count}}</span></a></li>
+                    {{end}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{template "indexFoot.html" .}}

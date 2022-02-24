@@ -1,0 +1,37 @@
+{{template "header.html" .}}
+{{template "nav.html" .}}
+<!-- 左侧导航和正文内容的分隔线 -->
+<div class="splitter"></div>
+<!-- 正文内容部分 -->
+<div class="pageContent">
+    <div class="container-fluid">
+        <h1 class="mt-4" style="font-size: 30px;text-align: center">标签列表</h1>
+        <div class="card mb-4">
+            <div class="card-header" style="height: 30px">
+                <a class=" btn navbar-brand btn-success" href="/tag/add">添加标签</a>
+            </div>
+            <div class="card-body" style="padding-top: 20px;margin-top: 5px">
+                <table class="table table-bordered table-hover" id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>分类名</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{range .tagList}}
+                    <tr>
+                        <td>{{.ID}}</td>
+                        <td>{{.TagName}}</td>
+                        <td><a href="/tag/edit?id={{.ID}}">编辑</a>|<a href="/tag/delete?id={{.ID}}">删除</a></td>
+                    </tr>
+                    {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "footer.html" .}}

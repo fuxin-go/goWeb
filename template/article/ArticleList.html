@@ -1,0 +1,46 @@
+{{template "header.html" .}}
+{{template "nav.html" .}}
+<!-- 左侧导航和正文内容的分隔线 -->
+<div class="splitter"></div>
+<!-- 正文内容部分 -->
+<div class="pageContent">
+    <div class="container-fluid">
+        <h1 class="mt-4" style="font-size: 30px;text-align: center">文章列表</h1>
+        <div class="card mb-4">
+            <div class="card-header" style="height: 30px">
+                <a class=" btn navbar-brand btn-success" href="/article/add">添加文章</a>
+            </div>
+            <div class="card-body" style="padding-top: 20px;margin-top: 5px">
+                <table class="table table-bordered table-hover" id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>文章标题</th>
+                        <th>文章描述</th>
+                        <th>文章分类</th>
+                        <th>文章标签</th>
+                        <th>文章创建者</th>
+                        <th>文章创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{range .articleList}}
+                    <tr>
+                        <td>{{.ID}}</td>
+                        <td>{{.Title}}</td>
+                        <td>{{.Desc}}</td>
+                        <td>{{.CateName}}</td>
+                        <td>{{.TagName}}</td>
+                        <td>{{.Username}}</td>
+                        <td>{{.CreatedAt}}</td>
+                        <td><a href="/article/edit?id={{.ID}}">编辑</a>|<a href="/article/delete?id={{.ID}}">删除</a></td>
+                    </tr>
+                    {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{{template "footer.html" .}}

@@ -1,0 +1,55 @@
+{{template "indexHead.html" .}}
+<link rel="stylesheet" href="../../static/md/css/editormd.css"/>
+
+<script src="../../static/js/jquery.min.js"></script>
+<script src="../../static/js/bootstrap.min.js"></script>
+<script src="../../static/md/lib/marked.min.js"></script>
+<script src="../../static/md/lib/prettify.min.js"></script>
+
+<script src="../../static/md/lib/raphael.min.js"></script>
+<script src="../../static/md/lib/underscore.min.js"></script>
+<script src="../../static/md/lib/sequence-diagram.min.js"></script>
+<script src="../../static/md/lib/flowchart.min.js"></script>
+<script src="../../static/md/lib/jquery.flowchart.min.js"></script>
+<script src="../../static/md/editormd.min.js"></script>
+<div class="container">
+    <div class="content-wrap">
+        <div class="content">
+            <header class="article-header">
+                <h1 class="article-title"><a href="" >{{.articleRow.Title}}</a></h1>
+                <div class="article-meta ">
+                    <span class="item category"><a href="#">{{.articleRow.CateName}}</a></span>
+                    <span class="item category"><a href="#">{{.articleRow.TagName}}</a></span>
+                    <span class="item time ">{{.articleRow.UpdatedAt.Format "2006-01-02 15:04:05"}}</span>
+
+                </div>
+            </header>
+
+            <article class="article-content">
+                <div id="test-editormd-view2">
+
+                    <textarea id="article_content">{{.articleRow.Content}}</textarea>
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+            htmlDecode: "style,script,iframe",
+            emoji: true,
+            taskList: true,
+            tex: true,  // 默认不解析
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
+        });
+
+    })
+</script>
+{{template "indexFoot.html" .}}

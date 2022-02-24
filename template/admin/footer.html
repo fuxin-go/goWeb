@@ -1,0 +1,16 @@
+<div class="footer">
+  <p class="text-center">
+   2021 xx
+  </p>
+</div>
+</body>
+<script>
+    $(document).ready(function (){
+        token = sessionStorage.getItem('token');
+
+        if(token === null){
+            window.location.href="/user/login";
+        }
+    })
+</script>
+</html>
